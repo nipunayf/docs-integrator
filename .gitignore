@@ -42,11 +42,3 @@ en/site
 
 .vercel
 .env*.local
-
-# Local agent/task notes
-EIP_PATTERN_STRUCTURE.md
-INSTRUCTIONS.md
-LESSONS.md
-MISSING_LINKS.md
-TASK_AGENT.md
-.codex
