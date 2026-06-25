@@ -1,0 +1,4 @@
+interface:
+  display_name: "EIP Super Agent"
+  short_description: "Coordinate iterative EIP documentation batches"
+  default_prompt: "Use $eip-super-agent to coordinate an EIP documentation batch for the patterns I provide."
