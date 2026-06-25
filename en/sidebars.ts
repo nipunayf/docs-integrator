@@ -1840,6 +1840,13 @@ const sidebars: SidebarsConfig = {
             'guides/patterns/message-mapper',
           ],
         },
+        {
+          type: 'category',
+          label: 'Use Cases',
+          items: [
+            'guides/use-cases/legacy-modernization-with-ballerina',
+          ],
+        },
         // Migration Guides
         {
           type: 'category',
