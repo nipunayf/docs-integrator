@@ -19,6 +19,8 @@ The pattern is implemented by keeping the business operation in a reusable funct
 
 Use request-reply service activation when a message sender expects the activated service to return a result. Define typed request and response records, implement the operation as a reusable function, and call that function from both the direct resource function and the broker request handler.
 
+The example represents an order processing operation that can be invoked by direct HTTP callers or by messages arriving on a RabbitMQ request queue. Both entry points call the same shared function and return the typed result to the caller or message sender.
+
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>
 
@@ -87,6 +89,8 @@ service rabbitmq:Service on activatorListener {
 ## One-way command activation
 
 Use one-way command activation when the message channel only needs to trigger the operation and does not need a service result in the reply path. The broker handler validates the message content, calls the shared function, and lets the handler return successfully after the command is accepted.
+
+The example represents a command queue that activates the same order processing operation without sending a service response back through the broker. The RabbitMQ handler accepts the message, calls the shared function, and completes the command flow after the operation is triggered.
 
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>

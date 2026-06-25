@@ -19,6 +19,8 @@ The pattern is implemented at the decision point where the flow has enough messa
 
 Use pattern-based content routing with [match expressions](../../develop/understand-ide/editors/flow-diagram-editor/control.md#match) when each recipient maps to a known field value, such as a message type, region, product category, or event name. Keep an explicit default branch so unsupported content is handled in a dedicated fallback path for invalid recipients.
 
+The example represents an order routing flow where each request carries an item type. A `match` expression sends standard and express orders to separate fulfillment recipients, while unsupported item types return a dedicated error response.
+
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>
 
@@ -83,6 +85,8 @@ service /orders on new http:Listener(8080) {
 ## Predicate-based content routing
 
 Use predicate-based content routing with [if/else statements](../../develop/understand-ide/editors/flow-diagram-editor/control.md#if) when the route depends on content rules instead of one stable routing key.
+
+The example represents an order routing flow that evaluates multiple message fields before selecting a recipient. The flow routes large orders to a bulk recipient first, routes priority orders to a priority recipient next, and sends all remaining orders to the default recipient.
 
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>

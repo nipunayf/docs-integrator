@@ -21,6 +21,8 @@ The pattern is implemented by placing a filtering construct at the point where t
 
 Use predicate-based filtering with [if/else statements](../../develop/understand-ide/editors/flow-diagram-editor/control.md#if) when each message carries the fields needed for a single boolean decision, such as priority, source, header, or status. The accepted path contains the forwarding or processing action. The rejected path does nothing or handles the rejection separately.
 
+The following example shows an order intake flow where each message carries a priority value. The implementation checks that value with an `if` condition and forwards only high-priority messages to the outbound channel, while lower-priority messages stop at the filter.
+
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>
 
@@ -73,6 +75,8 @@ service /api/v1 on new http:Listener(8080) {
 
 Use collection-level filtering with [query expressions](../../reference/language/query-expressions.md) when the flow already has a group of messages or records and only a subset should continue. Keep the predicate in the `where` clause so the result is the accepted collection.
 
+The following example shows a batch-oriented flow that already has a collection of messages in memory. The implementation uses a query expression to select only the high-priority records, producing a smaller collection for the next processing step.
+
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>
 
@@ -118,6 +122,8 @@ function filterHighPriorityMessages(Message[] messages) returns Message[] {
 ## Boundary-level filtering
 
 Use boundary-level filtering when the input artifact can reject or route messages before custom flow logic runs. For HTTP-facing inputs, use a [request interceptor](../../connectors/catalog/built-in/http/trigger-reference.md#interceptors) when the decision can be made from request metadata before the resource executes. Other inputs can use their own handler, listener, or subscription selection points.
+
+The following example shows an HTTP-facing order endpoint that should process only high-priority requests. The implementation uses a request interceptor to check the priority header at the service boundary and stop requests that do not qualify before they reach the order resource.
 
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>
@@ -180,6 +186,8 @@ service /events on eventListener {
 ## Broker-side delivery filtering
 
 Use broker-side delivery filtering when RabbitMQ can reduce what reaches the flow before consumption. Route matching messages into a dedicated queue with a direct exchange and binding key, then configure the RabbitMQ trigger to consume only that queue. Use [RabbitMQ exchange bindings](../../connectors/catalog/messaging/rabbitmq/actions.md#exchange-management) to bind the accepted-message queue to the exchange with the accepted routing key.
+
+The following example shows an event-driven order flow where RabbitMQ performs the first filtering step. The implementation uses a direct exchange and binding key to route only accepted high-priority messages to the queue consumed by the integration, reducing unnecessary delivery to the service.
 
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>

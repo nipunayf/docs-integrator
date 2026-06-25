@@ -19,6 +19,8 @@ The pattern is implemented at the point where the integration receives a message
 
 Use stateful round-robin dispatch when each incoming message should be sent to the next processor in a fixed set. Store the current processor index in the service, update it with a `lock`, and call the selected processor through an [HTTP client connection](../../connectors/catalog/built-in/http/action-reference.md#client). The `lock` keeps the index update consistent when multiple requests arrive at the same time. For constructs that do not have a full visual representation, switch to pro-code through the [Flow Diagram editor](../../develop/understand-ide/editors/flow-diagram-editor/flow-diagram-editor.md#configuring-a-node).
 
+The example represents a dispatcher service that receives a message reference and forwards each request to one of three processors in turn. The service updates the next processor index before the outbound call, so consecutive requests are distributed across the processor set.
+
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>
 

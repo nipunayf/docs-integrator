@@ -19,6 +19,8 @@ The pattern is implemented at the point where the flow controls the receive call
 
 Use loop-driven polling with [while loops](../../develop/understand-ide/editors/flow-diagram-editor/control.md#while) when the integration should keep checking a channel or endpoint while it controls the maximum attempts and wait interval. The receive or status-check call stays inside the loop, and the flow exits when it receives a message that is ready to process.
 
+The example represents an HTTP-triggered flow that polls a status endpoint for a specific message ID. The flow retries until the response reports that the message is ready, then returns the message or ends with an error when the configured polling limit is reached.
+
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>
 
@@ -75,6 +77,8 @@ service /messages on new http:Listener(8080) {
 ## Scheduled broker polling
 
 Use scheduled broker polling when each automation run should pull at most one message from a broker and then stop. This keeps the schedule outside the receive logic while the flow still controls when it asks the broker for the next message. For JMS-backed channels, use the [JMS Message Consumer actions](../../connectors/catalog/messaging/java.jms/actions.md#message-consumer) with `receive` or `receiveNoWait`.
+
+The example represents a scheduled automation that explicitly asks a JMS queue for one message during each run. The flow receives within a bounded timeout, processes and acknowledges a message only when one is available, and otherwise exits without waiting for broker push delivery.
 
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>

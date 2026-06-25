@@ -19,6 +19,8 @@ The pattern is implemented by defining the message shape close to the integratio
 
 Use a typed message envelope when the integration needs a stable application-level message shape before it sends data to a connector or returns it from a resource function. Model the envelope as a closed record with separate records for headers and body fields.
 
+The example represents an order event that carries correlation metadata separately from the order details. The flow builds a typed message envelope so downstream steps can handle headers and business data without depending on a transport-specific message format.
+
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>
 
@@ -67,6 +69,8 @@ function buildOrderMessage(OrderBody order, string correlationId) returns OrderM
 ## Channel boundary binding
 
 Use channel boundary binding when the message arrives through, or leaves through, a protocol that already provides metadata and payload locations. Keep the EIP Message shape explicit in the flow, then map HTTP headers, HTTP payloads, or broker records into that envelope at the boundary.
+
+The example represents an HTTP order endpoint that receives the message body and correlation header at the service boundary. The flow maps those boundary values into a typed message envelope, publishes the envelope to a NATS subject, and returns the same explicit message shape from the resource function.
 
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>

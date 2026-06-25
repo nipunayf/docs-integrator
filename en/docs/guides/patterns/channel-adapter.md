@@ -19,6 +19,8 @@ The adapter is usually implemented at the edge of the flow. Use connector client
 
 A connector client adapts an external application API into the integration flow. Create the connection with managed connection settings, call the required connector operation, and pass the typed result into the next step.
 
+The example represents a flow that reads project details from an external application channel. The connector client adapts the application API to a typed operation that the rest of the integration can call without handling transport or authentication details directly.
+
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>
 
@@ -63,6 +65,8 @@ public function readProject(string projectKey) returns jira:Project|error {
 
 An HTTP service adapts an inbound HTTP channel into an integration flow. Define the service resource as the adapter entry point, receive a typed request payload, and return the typed response expected by the caller. See [creating an HTTP service](../../develop/integration-artifacts/service/http.md#creating-an-http-service) for the service setup flow.
 
+The example represents an inbound lookup endpoint that accepts a project request over HTTP. The service resource acts as the adapter by converting the HTTP request into a typed call inside the integration flow and returning a typed response.
+
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>
 
@@ -105,6 +109,8 @@ service /projects on projectListener {
 ## Broker-backed channel adapter
 
 Use a broker listener when the channel is a messaging broker rather than an application API or HTTP endpoint. The service receives records from the broker, converts each record into the flow payload, and acknowledges or publishes through the connector according to the channel contract. Use the relevant broker guide, such as [Kafka consumers](../../develop/integration-artifacts/event/kafka.md#creating-a-kafka-listener), [RabbitMQ services](../../develop/integration-artifacts/event/rabbitmq.md#creating-a-rabbitmq-service), or the [JMS listener](../../connectors/catalog/messaging/java.jms/triggers.md#listener).
+
+The example represents an event-driven flow that consumes project events from a Kafka topic. The broker listener adapts delivered records into typed events, then hands each event to the integration logic for processing.
 
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>

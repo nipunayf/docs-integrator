@@ -19,6 +19,8 @@ The pattern is implemented at the consumer boundary or immediately inside the co
 
 Use broker-side selection when the broker can evaluate the criteria before the message reaches the service. For JMS-backed channels, configure a [JMS listener service](../../connectors/catalog/messaging/java.jms/triggers.md#service) with `messageSelector` so the service receives only messages whose headers or properties match the selector expression.
 
+The example represents an order-processing service that listens to a shared JMS queue. The service uses a JMS message selector so only high-priority order-created messages are delivered to this consumer.
+
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>
 
@@ -66,6 +68,8 @@ service "priority-order-consumer" on orderListener {
 ## Flow-level selection
 
 Use flow-level selection with [if/else statements](../../develop/understand-ide/editors/flow-diagram-editor/control.md#if) when the consumer must inspect the delivered payload, call another system, or apply rules that cannot be expressed as a broker selector. The service still reads from the shared channel, but the accepted branch contains the processing logic and the unmatched branch is ignored or handled separately.
+
+The example represents a consumer that receives order events from a shared channel and applies selection after delivery. The flow checks the order priority and region, then processes only high-priority orders for the west region while ignoring unmatched events.
 
 <PatternImplementationTabs>
 <TabItem value="ui" label="Visual Designer" default>
