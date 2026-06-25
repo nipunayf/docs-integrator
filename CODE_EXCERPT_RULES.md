@@ -9,4 +9,3 @@ Use these rules for every Ballerina code excerpt in EIP pattern pages.
 - Avoid repeating imports across tab sections.
 - Use comments only when they explain EIP-relevant behavior.
 - Keep prose product-focused. Use "The following code..." instead of "The following Ballerina code...".
-`
