@@ -36,6 +36,18 @@ const config: Config = {
     './src/plugins/connector-versions',
     './plugins/docusaurus-plugin-markdown-export',
     './src/plugins/expose-sidebars',
+    [
+      'docusaurus-plugin-mcp-server',
+      {
+        outputDir: 'mcp',
+        server: {
+          name: 'wso2-integrator-docs',
+          version: '1.0.0',
+        },
+        contentSelectors: ['article', 'main'],
+        excludeSelectors: ['nav', 'header', 'footer', '.theme-doc-toc-mobile'],
+      },
+    ],
   ],
 
   themes: [
